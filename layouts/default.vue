@@ -1,5 +1,11 @@
 <script setup lang="ts">
 const links = [{
+  label: 'My Account',
+  avatar: {
+    icon: 'i-ph-user-bold',
+    size: 'sm'
+  }
+}, {
   label: 'My Today',
   icon: 'i-ph-sun-bold',
   to: '/others?listName=today'
@@ -16,7 +22,7 @@ const links = [{
 
 <template>
   <div class="flex">
-    <div class="bg-black/10 flex-1 flex justify-between flex-col h-screen p-3">
+    <div class="bg-black/10 w-[330px] flex justify-between flex-col h-screen p-3">
       <UVerticalNavigation :links="links"/>
       <UVerticalNavigation :links="[{
         label: 'Settings',
@@ -24,7 +30,7 @@ const links = [{
         to: '/settings'
       }]"/>
     </div>
-    <div class="w-[80vw] p-3">
+    <div class="p-3 flex-1">
       <slot/>
     </div>
   </div>

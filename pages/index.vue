@@ -3,12 +3,11 @@
 </script>
 
 <template>
-  <div>
+  <div class="flex flex-col h-[100vh-0.75rem]">
     <TabBar 
       title="All ToDos" 
       :right-icon-show="true" 
       left-icon="i-ph-caret-up-down-bold"
     />
-    home
   </div>
 </template>
