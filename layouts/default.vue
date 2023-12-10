@@ -22,7 +22,7 @@ const links = [{
 
 <template>
   <div class="flex">
-    <div class="bg-black/10 w-[330px] flex justify-between flex-col h-screen p-3">
+    <div class="bg-black/10 w-[330px] flex justify-between flex-col h-screen p-3 min-w-[330px]">
       <UVerticalNavigation :links="links"/>
       <UVerticalNavigation :links="[{
         label: 'Settings',

@@ -11,8 +11,9 @@ function add() {
 <template>
   <div class="mb-3">
     <UTextarea v-model="text" color="primary" variant="outline" placeholder="Add new ToDo..." class="mb-3" />
-    <div class="flex gap-3">
-      <UButton 
+    <div class="flex gap-3" v-auto-animate>
+      <UButton
+        v-if="text"
         color="primary" 
         variant="soft" 
         icon="i-ph-check-bold" 

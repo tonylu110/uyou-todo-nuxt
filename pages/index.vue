@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="flex flex-col h-[100vh-0.75rem]">
+  <div class="flex flex-col h-[calc(100vh-0.75rem)]">
     <TabBar 
       title="All ToDos" 
       :right-icon-show="true" 
