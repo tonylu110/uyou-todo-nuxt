@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import type todo from '~/components/ToDoList/todo.type'
 
 export const useToDoStore = defineStore('todo', () => {
-    const todoList = ref<todo[] | never[]>([])
+    const todoList = ref<todo[]>([])
 
     function setToDo(todo: todo[]) {
       todoList.value = todo
@@ -16,10 +16,25 @@ export const useToDoStore = defineStore('todo', () => {
       })
     }
 
+    const showAdd = ref(false)
+    function showAddFn() {
+      showAdd.value = !showAdd.value
+    }
+    function add(text: string) {
+      todoList.value.unshift({
+        id: new Date().getTime(),
+        text,
+        ok: false
+      })
+    }
+
     return { 
       todoList,
       setToDo,
-      setOk
+      setOk,
+      showAdd,
+      showAddFn,
+      add
     }
   },
   {

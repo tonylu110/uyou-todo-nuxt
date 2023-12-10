@@ -10,6 +10,8 @@ withDefaults(defineProps<{
   leftIconShow: true,
   rightIconShow: false
 })
+
+const todo = useToDoStore()
 </script>
 
 <template>
@@ -27,12 +29,13 @@ withDefaults(defineProps<{
     <div class="flex items-end justify-between">
       <span :class="`${leftIconShow ? '' : 'text-2xl'}`">{{ title }}</span>
       <UButton
-      v-if="rightIconShow"
+        v-if="rightIconShow"
         icon="i-ph-plus-circle-bold"
         size="sm"
         color="white"
         square
         variant="solid"
+        @click="todo.showAddFn"
       />
     </div>
   </div>

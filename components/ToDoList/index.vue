@@ -4,6 +4,7 @@ const todo = useToDoStore()
 
 <template>
   <List class="pt-4">
+    <ToDoListAdd v-if="todo.showAdd" />
     <ToDoListItem 
       v-for="item in todo.todoList" 
       v-model="item.ok" 
