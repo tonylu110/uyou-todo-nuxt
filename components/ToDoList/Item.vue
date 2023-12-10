@@ -25,28 +25,35 @@ function copy() {
     timeout: 800
   })
 }
+
+const isMobile = ref(false)
+onMounted(() => {
+  if (window.innerWidth < 750) {
+    isMobile.value = true
+  }
+})
 </script>
 
 <template>
   <div class="divide-y divide-gray-200 dark:divide-gray-800 ring-1 ring-gray-200 dark:ring-gray-800 shadow bg-white dark:bg-gray-900 relative group overflow-hidden flex items-center rounded-lg mb-3 p-3">
-    <div>
+    <div class="flex justify-between w-full gap-1 items-center">
       <UCheckbox v-model="model" :label="title" @click="emit('setOk', id, model!)">
         <template #label>
           <span :class="model ? 'line-through' : ''">{{ title }}</span>
         </template>
       </UCheckbox>
-      <div class="flex right-2 top-[50%] translate-y-[-50%] absolute gap-1">
+      <div :class="`flex right-2 top-[50%] gap-2 ${isMobile ? '' : 'absolute translate-y-[-50%]'}`">
         <UButton 
           variant="soft" 
           icon="i-ph-copy-bold"  
-          class="opacity-0 hover:opacity-100 transition-opacity"
+          :class="`${isMobile ? 'opacity-100' : 'opacity-0'} hover:opacity-100 transition-opacity`"
           @click="copy"
         />
         <UButton 
           color="red" 
           variant="soft" 
           icon="i-ph-trash-bold"  
-          class="opacity-0 hover:opacity-100 transition-opacity"
+          :class="`${isMobile ? 'opacity-100' : 'opacity-0'} hover:opacity-100 transition-opacity`"
           @click="todo.del(id)"
         />
       </div>

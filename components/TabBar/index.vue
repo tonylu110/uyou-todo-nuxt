@@ -12,11 +12,30 @@ withDefaults(defineProps<{
 })
 
 const todo = useToDoStore()
+
+const showSiderBar = ref(false)
+const isOpen = ref(false)
+const height = ref(0)
+onMounted(() => {
+  if (window.innerWidth < 750) {
+    showSiderBar.value = true
+    height.value = window.outerHeight - 70
+  }
+})
 </script>
 
 <template>
   <div class="flex flex-col justify-between h-[62px] p-1">
-    <div>
+    <div class="flex gap-2">
+      <UButton
+        v-if="showSiderBar"
+        icon="i-ph-list-bold"
+        size="sm"
+        color="white"
+        square
+        variant="solid"
+        @click="isOpen = !isOpen"
+      />
       <UButton
         v-if="leftIconShow"
         :icon="leftIcon"
@@ -39,4 +58,10 @@ const todo = useToDoStore()
       />
     </div>
   </div>
+  <USlideover v-model="isOpen" prevent-close v-if="showSiderBar">
+    <div class="p-4 flex-1">
+      <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" class="mb-3" @click="isOpen = false" />
+      <SiderBar bg-color="bg-transparent" :height="`${height}px`"/>
+    </div>
+  </USlideover>
 </template>
