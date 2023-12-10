@@ -1,5 +1,5 @@
 <script setup lang="ts">
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   title: string
   id: number
 }>(), {
@@ -13,6 +13,18 @@ const emit = defineEmits<{
 const model = defineModel<boolean>()
 
 const todo = useToDoStore()
+
+const toast = useToast()
+function copy() {
+  navigator.clipboard.writeText(props.title)
+  toast.add({ 
+    title: 'Copy Success',
+    icon: 'i-heroicons-check-badge',
+    color: 'green',
+    description: props.title,
+    timeout: 800
+  })
+}
 </script>
 
 <template>
@@ -23,13 +35,21 @@ const todo = useToDoStore()
           <span :class="model ? 'line-through' : ''">{{ title }}</span>
         </template>
       </UCheckbox>
-      <UButton 
-        color="red" 
-        variant="soft" 
-        icon="i-ph-trash-bold"  
-        class="right-2 top-[50%] translate-y-[-50%] absolute opacity-0 hover:opacity-100 transition-opacity"
-        @click="todo.del(id)"
-      />
+      <div class="flex right-2 top-[50%] translate-y-[-50%] absolute gap-1">
+        <UButton 
+          variant="soft" 
+          icon="i-ph-copy-bold"  
+          class="opacity-0 hover:opacity-100 transition-opacity"
+          @click="copy"
+        />
+        <UButton 
+          color="red" 
+          variant="soft" 
+          icon="i-ph-trash-bold"  
+          class="opacity-0 hover:opacity-100 transition-opacity"
+          @click="todo.del(id)"
+        />
+      </div>
     </div>
   </div>
 </template>
