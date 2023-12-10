@@ -8,11 +8,11 @@ const links = [{
 }, {
   label: 'My Today',
   icon: 'i-ph-sun-bold',
-  to: '/others?listName=today'
+  to: '/others/today'
 }, {
   label: 'Starred ToDos',
   icon: 'i-ph-star-bold',
-  to: '/others?listName=star'
+  to: '/others/star'
 }, {
   label: 'All ToDos',
   icon: 'i-ph-list-dashes-bold',

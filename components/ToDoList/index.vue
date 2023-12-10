@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import { useToDoStore } from '../../stores/todo'
-
-const isOk = ref(true)
 const todo = useToDoStore()
 </script>
 
 <template>
   <List class="pt-4">
-    <ToDoListItem v-model="isOk" title="123"/>
+    <ToDoListItem 
+      v-for="item in todo.todoList" 
+      v-model="item.ok" 
+      :id="item.id" 
+      :title="item.text"
+      @set-ok="todo.setOk"
+    />
   </List>
 </template>

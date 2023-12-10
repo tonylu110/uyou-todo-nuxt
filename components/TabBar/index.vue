@@ -24,7 +24,7 @@ withDefaults(defineProps<{
         variant="solid"
       />
     </div>
-    <div class="flex items-center justify-between">
+    <div class="flex items-end justify-between">
       <span :class="`${leftIconShow ? '' : 'text-2xl'}`">{{ title }}</span>
       <UButton
       v-if="rightIconShow"
