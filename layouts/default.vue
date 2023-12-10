@@ -30,7 +30,7 @@ const links = [{
         to: '/settings'
       }]"/>
     </div>
-    <div class="p-3 flex-1">
+    <div class="p-2 flex-1">
       <slot/>
     </div>
   </div>

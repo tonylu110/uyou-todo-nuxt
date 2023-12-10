@@ -13,7 +13,7 @@ withDefaults(defineProps<{
 </script>
 
 <template>
-  <div class="flex flex-col justify-between h-[62px]">
+  <div class="flex flex-col justify-between h-[62px] p-1">
     <div>
       <UButton
         v-if="leftIconShow"
