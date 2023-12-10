@@ -11,7 +11,8 @@ const links = [{
   avatar: {
     icon: 'i-ph-user-bold',
     size: 'sm'
-  }
+  },
+  to: '/account'
 }, {
   label: 'My Today',
   icon: 'i-ph-sun-bold',
