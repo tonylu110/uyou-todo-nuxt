@@ -28,13 +28,22 @@ export const useToDoStore = defineStore('todo', () => {
       })
     }
 
+    function del(id: number) {
+      todoList.value.forEach((item, index) =>{
+        if (item.id === id) {
+          todoList.value.splice(index, 1)
+        }
+      })
+    }
+
     return { 
       todoList,
       setToDo,
       setOk,
       showAdd,
       showAddFn,
-      add
+      add,
+      del
     }
   },
   {

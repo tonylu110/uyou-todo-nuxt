@@ -7,7 +7,8 @@ const todo = useToDoStore()
     <ToDoListAdd v-if="todo.showAdd" />
     <ToDoListItem 
       v-for="item in todo.todoList" 
-      v-model="item.ok" 
+      v-model="item.ok"
+      :key="item.id"
       :id="item.id" 
       :title="item.text"
       @set-ok="todo.setOk"
