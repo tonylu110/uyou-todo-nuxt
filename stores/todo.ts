@@ -1,6 +1,11 @@
 import { defineStore } from 'pinia'
 import type todo from '~/components/ToDoList/todo.type'
 
+interface msg {
+  code: number
+  msg?: string
+}
+
 export const useToDoStore = defineStore('todo', () => {
     const todoList = ref<todo[]>([])
 
@@ -36,8 +41,53 @@ export const useToDoStore = defineStore('todo', () => {
       })
     }
 
-    function getCloudToDo(uid: string) {
-
+    function getCloudToDo(uid: string, success: (msg: msg) => void, fail: (msg: msg) => void) {
+      fetch(`https://api.todo.uyou.org.cn/todoexist?uid=${uid}`).then((res) => {
+          return res.json()
+        }).then((res) => {
+          if (res.code === 200) {
+            fetch('https://api.todo.uyou.org.cn/addtodo', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                uid,
+                data: JSON.stringify({
+                  data: todoList
+                }),
+              }),
+            }).then((res) => {
+              return res.json()
+            }).then((res) => {
+              if (res.code === 200)
+                success(res)
+              else
+                fail(res)
+            })
+          }
+          else {
+            fetch('https://api.todo.uyou.org.cn/gettodo', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                uid,
+              }),
+            }).then((res) => {
+              return res.json()
+            }).then((res: {_id: string, data: string}) => {
+              if (res._id) {
+                todoList.value = JSON.parse(res.data).data
+                success({ code: 200 })
+              }
+              else {
+                fail({code: 500})
+              }
+            })
+          }
+        })
     }
 
     return { 

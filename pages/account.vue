@@ -11,6 +11,7 @@ const dialogMsg = ref('')
 const showCancel = ref(false)
 
 const user = useUserStore()
+const todo = useToDoStore()
 
 const uname = ref('')
 const pass = ref('')
@@ -26,9 +27,24 @@ function login() {
         color: 'green',
         timeout: 800
       })
+      todo.getCloudToDo(user.userId, () => {
+        toast.add({ 
+          title: 'Sync Success',
+          icon: 'i-heroicons-check-badge',
+          color: 'green',
+          timeout: 800
+        })
+      }, () => {
+        toast.add({ 
+          title: 'Sync fail',
+          icon: 'i-heroicons-x-circle',
+          color: 'red',
+          timeout: 800
+        })
+      })
     }, (data) => {
       if (data.code === 500) {
-        dialogMsg.value = 'user name or password fild'
+        dialogMsg.value = 'user name or password fail'
         isOpen.value = true        
       } else if (data.code === 501) {
         dialogMsg.value = 'login error'
