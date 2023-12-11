@@ -7,18 +7,57 @@ onMounted(() => {
 })
 
 const isOpen = ref(false)
+const dialogMsg = ref('')
+const showCancel = ref(false)
 
 const user = useUserStore()
 
 const uname = ref('')
 const pass = ref('')
 
+const toast = useToast()
+
 function login() {
   if (uname.value && pass.value) {
-    user.login(uname.value, pass.value)
+    user.login(uname.value, pass.value, (data) => {
+      toast.add({ 
+        title: 'Login Success',
+        icon: 'i-heroicons-check-badge',
+        color: 'green',
+        timeout: 800
+      })
+    }, (data) => {
+      if (data.code === 500) {
+        dialogMsg.value = 'user name or password fild'
+        isOpen.value = true        
+      } else if (data.code === 501) {
+        dialogMsg.value = 'login error'
+        isOpen.value = true
+      }
+    })
   } else {
+    dialogMsg.value = 'plz input user name or password'
     isOpen.value = true
   }
+}
+
+function logoutBtn() {
+  dialogMsg.value = 'Do you want to log out'
+  showCancel.value = true
+  isOpen.value = true
+}
+
+function logout() {
+  user.logout(() => {
+    showCancel.value = false
+    isOpen.value = false
+    toast.add({ 
+      title: 'Logout Success',
+      icon: 'i-heroicons-check-badge',
+      color: 'green',
+      timeout: 800
+    })
+  })
 }
 
 function openUrl() {
@@ -64,15 +103,29 @@ function openUrl() {
             @click="openUrl"
           />
         </div>
+        <UButton
+          v-if="user.userId"
+          label="Log out"
+          size="xl"
+          class="justify-center w-full"
+          color="red"
+          @click="logoutBtn"
+        />
       </UContainer>
     </List>
   </div>
   <Dialog 
     title="Warn"
     v-model="isOpen"
-    :show-cancel="false"
-    @confirm-fn="isOpen = false"
+    :show-cancel="showCancel"
+    @confirm-fn="() => {
+      if (!showCancel) {
+        isOpen = false
+      } else {
+        logout()
+      }
+    }"
   >
-    <span>plz input user name or password</span>
+    <span>{{ dialogMsg }}</span>
   </Dialog>
 </template>

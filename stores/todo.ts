@@ -36,6 +36,10 @@ export const useToDoStore = defineStore('todo', () => {
       })
     }
 
+    function getCloudToDo(uid: string) {
+
+    }
+
     return { 
       todoList,
       setToDo,
@@ -43,7 +47,8 @@ export const useToDoStore = defineStore('todo', () => {
       showAdd,
       showAddFn,
       add,
-      del
+      del,
+      getCloudToDo
     }
   },
   {
